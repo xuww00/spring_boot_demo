@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuww.springbootdemo.entity.mapper.YUserMapper">
+  <resultMap id="BaseResultMap" type="com.xuww.springbootdemo.entity.YUser">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="PAY_PWD" jdbcType="VARCHAR" property="payPwd" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="LAST_LOGIN_IF" jdbcType="VARCHAR" property="lastLoginIf" />
+    <result column="FINGERPRINT" jdbcType="VARCHAR" property="fingerprint" />
+    <result column="FINGERPRINT_IF" jdbcType="VARCHAR" property="fingerprintIf" />
+    <result column="DRIBLET_PAY_AVOID" jdbcType="DECIMAL" property="dribletPayAvoid" />
+    <result column="DRIBLET_PAY_AMOUNT" jdbcType="DECIMAL" property="dribletPayAmount" />
+    <result column="DRIBLET_PAY_LIMIT" jdbcType="DECIMAL" property="dribletPayLimit" />
+    <result column="DRIBLET_PAY_IF" jdbcType="VARCHAR" property="dribletPayIf" />
+    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, LOGIN_NAME, MOBILE, PASSWORD, PAY_PWD, STATUS, LAST_LOGIN_IF, FINGERPRINT, FINGERPRINT_IF, 
+    DRIBLET_PAY_AVOID, DRIBLET_PAY_AMOUNT, DRIBLET_PAY_LIMIT, DRIBLET_PAY_IF, LAST_LOGIN_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.xuww.springbootdemo.entity.YUserCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Y_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Y_USER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Y_USER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xuww.springbootdemo.entity.YUserCriteria">
+    delete from Y_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xuww.springbootdemo.entity.YUser">
+    insert into Y_USER (ID, LOGIN_NAME, MOBILE, 
+      PASSWORD, PAY_PWD, STATUS, 
+      LAST_LOGIN_IF, FINGERPRINT, FINGERPRINT_IF, 
+      DRIBLET_PAY_AVOID, DRIBLET_PAY_AMOUNT, DRIBLET_PAY_LIMIT, 
+      DRIBLET_PAY_IF, LAST_LOGIN_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{loginName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{payPwd,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{lastLoginIf,jdbcType=VARCHAR}, #{fingerprint,jdbcType=VARCHAR}, #{fingerprintIf,jdbcType=VARCHAR}, 
+      #{dribletPayAvoid,jdbcType=DECIMAL}, #{dribletPayAmount,jdbcType=DECIMAL}, #{dribletPayLimit,jdbcType=DECIMAL}, 
+      #{dribletPayIf,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuww.springbootdemo.entity.YUser">
+    insert into Y_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="loginName != null">
+        LOGIN_NAME,
+      </if>
+      <if test="mobile != null">
+        MOBILE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="payPwd != null">
+        PAY_PWD,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="lastLoginIf != null">
+        LAST_LOGIN_IF,
+      </if>
+      <if test="fingerprint != null">
+        FINGERPRINT,
+      </if>
+      <if test="fingerprintIf != null">
+        FINGERPRINT_IF,
+      </if>
+      <if test="dribletPayAvoid != null">
+        DRIBLET_PAY_AVOID,
+      </if>
+      <if test="dribletPayAmount != null">
+        DRIBLET_PAY_AMOUNT,
+      </if>
+      <if test="dribletPayLimit != null">
+        DRIBLET_PAY_LIMIT,
+      </if>
+      <if test="dribletPayIf != null">
+        DRIBLET_PAY_IF,
+      </if>
+      <if test="lastLoginTime != null">
+        LAST_LOGIN_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="payPwd != null">
+        #{payPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginIf != null">
+        #{lastLoginIf,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprint != null">
+        #{fingerprint,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprintIf != null">
+        #{fingerprintIf,jdbcType=VARCHAR},
+      </if>
+      <if test="dribletPayAvoid != null">
+        #{dribletPayAvoid,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayAmount != null">
+        #{dribletPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayLimit != null">
+        #{dribletPayLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayIf != null">
+        #{dribletPayIf,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xuww.springbootdemo.entity.YUserCriteria" resultType="java.lang.Long">
+    select count(*) from Y_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Y_USER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loginName != null">
+        LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPwd != null">
+        PAY_PWD = #{record.payPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastLoginIf != null">
+        LAST_LOGIN_IF = #{record.lastLoginIf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fingerprint != null">
+        FINGERPRINT = #{record.fingerprint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fingerprintIf != null">
+        FINGERPRINT_IF = #{record.fingerprintIf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dribletPayAvoid != null">
+        DRIBLET_PAY_AVOID = #{record.dribletPayAvoid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dribletPayAmount != null">
+        DRIBLET_PAY_AMOUNT = #{record.dribletPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dribletPayLimit != null">
+        DRIBLET_PAY_LIMIT = #{record.dribletPayLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dribletPayIf != null">
+        DRIBLET_PAY_IF = #{record.dribletPayIf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null">
+        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Y_USER
+    set ID = #{record.id,jdbcType=DECIMAL},
+      LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      PAY_PWD = #{record.payPwd,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      LAST_LOGIN_IF = #{record.lastLoginIf,jdbcType=VARCHAR},
+      FINGERPRINT = #{record.fingerprint,jdbcType=VARCHAR},
+      FINGERPRINT_IF = #{record.fingerprintIf,jdbcType=VARCHAR},
+      DRIBLET_PAY_AVOID = #{record.dribletPayAvoid,jdbcType=DECIMAL},
+      DRIBLET_PAY_AMOUNT = #{record.dribletPayAmount,jdbcType=DECIMAL},
+      DRIBLET_PAY_LIMIT = #{record.dribletPayLimit,jdbcType=DECIMAL},
+      DRIBLET_PAY_IF = #{record.dribletPayIf,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuww.springbootdemo.entity.YUser">
+    update Y_USER
+    <set>
+      <if test="loginName != null">
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="payPwd != null">
+        PAY_PWD = #{payPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginIf != null">
+        LAST_LOGIN_IF = #{lastLoginIf,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprint != null">
+        FINGERPRINT = #{fingerprint,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprintIf != null">
+        FINGERPRINT_IF = #{fingerprintIf,jdbcType=VARCHAR},
+      </if>
+      <if test="dribletPayAvoid != null">
+        DRIBLET_PAY_AVOID = #{dribletPayAvoid,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayAmount != null">
+        DRIBLET_PAY_AMOUNT = #{dribletPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayLimit != null">
+        DRIBLET_PAY_LIMIT = #{dribletPayLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="dribletPayIf != null">
+        DRIBLET_PAY_IF = #{dribletPayIf,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuww.springbootdemo.entity.YUser">
+    update Y_USER
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PAY_PWD = #{payPwd,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      LAST_LOGIN_IF = #{lastLoginIf,jdbcType=VARCHAR},
+      FINGERPRINT = #{fingerprint,jdbcType=VARCHAR},
+      FINGERPRINT_IF = #{fingerprintIf,jdbcType=VARCHAR},
+      DRIBLET_PAY_AVOID = #{dribletPayAvoid,jdbcType=DECIMAL},
+      DRIBLET_PAY_AMOUNT = #{dribletPayAmount,jdbcType=DECIMAL},
+      DRIBLET_PAY_LIMIT = #{dribletPayLimit,jdbcType=DECIMAL},
+      DRIBLET_PAY_IF = #{dribletPayIf,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="listByPage" resultType="com.xuww.springbootdemo.entity.YUser">
+    SELECT TT.* FROM
+    (
+    SELECT T.*,ROWNUM RN FROM
+    (
+    SELECT  * FROM Y_USER
+    ORDER BY ID DESC
+    ) T WHERE ROWNUM &lt;= #{endIndex}
+    ) TT WHERE TT.RN &gt; #{startIndex}
+  </select>
+
+</mapper>
